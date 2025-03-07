@@ -6,19 +6,14 @@ import requests
 
 app = FastAPI()
 
-# Add CORS middleware
-origins = [
-    "https://binarybrainsaqi.netlify.app",
-    "http://127.0.0.1:5173"# Allow your frontend to access the backend
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Set the origins that are allowed
+    allow_origins=["*"],  # Allow all origins for testing
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
 
 # Load trained AQI prediction model
 model = joblib.load("random_forest_model.pkl")
