@@ -67,6 +67,9 @@ This project can be deployed using:
    
     Render with gunicorn -w 4 -b 0.0.0.0:$PORT aqi_predictor:app
 
+## Access the Website
+
+[BinaryBrainsAQI](https://binarybrainsaqi.netlify.app/)
 
 ## Future Enhancements
 - Implement deep learning models for improved accuracy.
