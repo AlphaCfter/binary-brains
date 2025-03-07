@@ -69,7 +69,7 @@ This project can be deployed using:
 
 ## Access the Website
 
-[BinaryBrainsAQI](https://binarybrainsaqi.netlify.app/)
+[Binary Brains AQI](https://binarybrainsaqi.netlify.app/) : https://binarybrainsaqi.netlify.app/
 
 ## Future Enhancements
 - Implement deep learning models for improved accuracy.
