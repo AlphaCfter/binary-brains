@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware  # Import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware 
 import joblib
 import numpy as np
 import requests
@@ -8,17 +8,15 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins for testing
+    allow_origins=["localhost:8080"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
-# Load trained AQI prediction model
 model = joblib.load("random_forest_model.pkl")
 
-# WAQI API Token (Replace with your actual token)
 WAQI_API_TOKEN = "4037b40c52a901a191eee5575b9986c3c1a473da"
 
 def fetch_pollutants(city):
@@ -30,7 +28,6 @@ def fetch_pollutants(city):
     if data["status"] == "ok":
         pollutants = data["data"]["iaqi"]
 
-        # Extract pollutants, replacing missing values with 0
         pm25 = pollutants.get("pm25", {}).get("v", 0)
         no = pollutants.get("no", {}).get("v", 0)
         no2 = pollutants.get("no2", {}).get("v", 0)
@@ -46,18 +43,15 @@ def fetch_pollutants(city):
 @app.get("/predict/")
 def predict_aqi(city: str):
     try:
-        # Fetch pollutant data from WAQI
         input_data = fetch_pollutants(city)
 
         if input_data is None:
             return {"error": "Could not fetch AQI data for the given city."}
 
-        # Predict AQI using the trained model
-        predicted_aqi = model.predict(input_data)[0] / 2  # Apply same division as your script
-
+        predicted_aqi = model.predict(input_data)[0] / 2  
         return {
             "city": city,
-            "predicted_aqi": float(predicted_aqi)  # Convert to float for JSON response
+            "predicted_aqi": float(predicted_aqi) 
         }
 
     except Exception as e:
